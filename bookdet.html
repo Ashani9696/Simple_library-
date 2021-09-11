@@ -1,0 +1,125 @@
+ <?php
+$hostname = "localhost"; 
+$username = "root"; 
+$password = "";
+$db = "sipsewana";
+$port_num = "3306"; 
+ 
+$con= mysqli_connect($hostname,$username,$password,$db,$port_num);
+ // Check connection 
+if(mysqli_connect_errno())
+{
+	die("connection unsuccessfull".mysqli_connect_error());
+}
+else{
+	echo"connection successfull";
+}
+
+
+
+
+if(isset($_POST['submit']))
+{
+ $bname=$_POST['fname'];
+ $idd=$_POST['id'];
+ $cate = $_POST['category'];
+ $au=$_POST['author'];
+ $num=$_POST['number'];
+ $dt=$_POST['date'];
+
+
+ $sqq="INSERT INTO  book (Book_name,Book_id,Category, Author,ISBN,Date_now) VALUES ( '{$bname}','{$idd}','{$cate}','{$au}','{$num}', '{$dt}')";
+
+ 
+ 
+  $result=mysqli_query($con,$sqq);
+   if($result)
+  {
+	echo"record is added";
+  }
+  else
+  {
+	echo"record is not added";
+  } 
+}
+
+if(isset($_POST['delete']))
+{ 
+   $idd=$_POST['id'];
+   $sqqd="DELETE FROM book WHERE Book_id=$idd";
+   if(mysqli_query($con,$sqqd))
+   {
+	   echo"record is deleted";
+   }
+   else
+   {
+	   echo"record is not deleted";
+   }
+} 
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> book detail form</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<section>
+  <div class="addbook">
+    <br>
+    
+
+  
+  <div class="box3" >
+    <h1 style="text-align: center; font-size: 35px; font-family: Lucida Console;"> Sipsewana Library </h1> <br>  
+    <h1 style="text-align: center; font-size: 25px;"> Book Details </h1> <br>
+
+    <form name="bookdet" action="bookdet.php" method="POST" >
+      <div class="login">
+        <input class="form-control" type="text" name="fname" id="fname" placeholder="Book Name" required=""> <br> 
+       <input class="form-control" type="text" name="id" id="bid" placeholder="Book ID" required=""> <br> 
+
+      <select class="form-control" id="category" name="category">
+        <option value="0"> -select-</option>
+        <option value="1"> novel </option>
+        <option value="2"> short stories </option>
+        <option value="3"> English Literature</option>
+        <option value="4"> Tamil </option>
+
+     </select> <br>
+      <input class="form-control" type="text" name=" author" id="author" placeholder="Author" required=""> <br>
+      <input class="form-control" type="text" name="number" id="number" placeholder="ISBN Number" required=""> <br> 
+       
+      <input class="form-control" type="date" name="date" id="date" placeholder="Date" required=""> <br> 
+       
+        <input class="btn btn-default" type="submit" name="submit" value="submit" style="color: gray; width: 80px; height: 30px;"
+         onclick="return validation();">
+
+        <input class ="btn btn-default" type="submit" name="delete" value=" delete" style="color: gray; width: 80px; height: 30px;">
+        <input class="btn btn-default" type="submit" name="update" value="update" style="color: gray; width: 80px; height: 30px;"> 
+         </div>
+
+
+      
+    </form>
+    
+    
+  </div>
+</div>
+</section>
+</body>
+</html>

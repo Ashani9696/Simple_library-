@@ -1,0 +1,115 @@
+  <?php
+$hostname = "localhost"; 
+$username = "root"; 
+$password = "";
+$db = "sipsewana"; 
+$port_number = "3306";
+ 
+$con= mysqli_connect($hostname,$username,$password,$db,$port_number);
+ // Check connection 
+if(mysqli_connect_errno())
+{
+	die("connection unsuccessfull".mysqli_connect_error());
+}
+else{
+	echo"connection successfull";
+}
+?>
+
+<?php 
+if(isset($_POST['submit']))
+{
+ $fname=$_POST['first_name'];
+ $lname=$_POST['last_name'];
+ $uname=$_POST['username'];
+ $pwd=$_POST['password'];
+ $ro=$_POST['roll'];
+ $mail=$_POST['Email'];
+ $tel=$_POST['Telephone'];
+
+
+
+
+ $sqq="INSERT INTO student(First_name,Last_name,Username,Password,Roll_number,Email,Telephone) VALUES ( '{$fname}', '{$lname}','{$uname}','{$pwd}', '{$ro}', '{$mail}','{$tel}')";
+
+ 
+    
+ $result=mysqli_query($con,$sqq);
+   if($result)
+  {
+	echo"record is added";
+  }
+  else
+  {
+	echo"record is not added";
+  } 
+
+
+
+
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+ <section>
+	<div class="reg_img">
+		<br>
+		
+
+	
+	<div class="box2" >
+		<h1 style="text-align: center; font-size: 35px; font-family: Lucida Console;"> Library Management System </h1> <br>  
+		<h1 style="text-align: center; font-size: 25px;"> User Ragistration Form </h1> <br>
+
+		<form name="Registration" action="regis.php" method="POST" >
+			<div class="login">
+			<input class="form-control" type="text" name="first_name" id="firstname" placeholder="first_name" required=""> <br> 
+			<input class="form-control" type="text" name="last_name" id="lastname" placeholder="last_name" required=""> <br> 
+			
+			
+			<!--<label> Gender</label>
+			<input class="form-control" type="radio" id="male" name="Gender" value="o"> 
+            <input class="form-control" type="radio" id="female" name="Gender" value="1"><br>-->
+            
+             <input class="form-control" type="text" name="username" id="username" placeholder="username" required=""> <br> 
+			<input class="form-control" type="password" name="password" id="password" placeholder="password" required=""> <br> 
+			<input class="form-control" type="text" name="roll" placeholder="Roll_number" required=""> <br> 
+			<input class="form-control" type="text" name="Email" id="email" placeholder="email" required=""> <br> 
+			<input class="form-control" type="text" name="Telephone" id="number" placeholder="Telephone" required=""> <br>
+
+		    <input class="btn btn-default" type="submit" name="submit" value="sign up" style="color: gray; width: 80px; height: 30px;" 
+		     onclick="return validation();"> 
+		     </div>
+
+
+			
+		</form>
+		
+		
+	</div>
+</div>
+</section>
+</body>
+</html>
