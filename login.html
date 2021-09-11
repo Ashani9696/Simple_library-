@@ -1,0 +1,92 @@
+<?php session_start(); ?>
+
+<?php 
+
+require_once('Connection.php'); 
+include('logic.php');
+
+?>
+
+<?php
+
+$errors = array();
+    if(isset($_POST['submit'])){
+        if(!isset($_POST['username']) || strlen(trim($_POST['username']))<1){
+            // $errors[] =  'Invalid';
+            echo 'Invalid';
+        }
+        else if(!isset($_POST['password']) || strlen($_POST['username'])<1){
+            $errors[] =  'Invalid';
+        }
+        else{
+
+           
+             if(mysqli_num_rows(tabaleSelector('student'))==1){
+                $record = getValue("SELECT * FROM student WHERE username = '{$_POST['username']}' AND password = '{$_POST['password']}'");
+                 
+                    $_SESSION['id'] = $record['st_id'];
+                   
+                     header("Location:../php/Student/StudentMain.php");
+                
+               
+                
+            }
+            
+            
+            else{
+                // $errors[] = 'invalid username password';
+                echo 'invalid username password';
+            }
+        }
+    }
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="login.css">
+    </head>
+    <body>
+        <section>
+            <div class="imgbox">
+<img src="undraw_enter_uhqk.svg">
+            </div>
+            <div class="content">
+                <div class="formBx">
+                    <div class="login">
+                    <h2> Login </h2>
+                </div>
+        <form name="login" action="" method="" >
+            <div class="inputbx">
+                <span> User Name </span>
+			<input  type="text" name="username" placeholder="username" required="" > <br> <br>
+        </div>
+        <div class="inputbx">
+            <span> Password</span>
+			<input type="password" name="password" placeholder ="password" required=""style="position: absolute; left: 30%;"> <br> <br>
+        </div>
+        <div>
+         <label style="color: antiquewhite;position: absolute; top: 280px;"> <input type="checkbox" name="" style="width: 17px;position:absolute;top: -9px; left: 129px;"> Forgot Password </label>
+        </div>
+		    <input type="button" name="login" value="Login" style=" width: 80px; height: 30px ; text-align: center; position: absolute; left: 50%; top: 128%;"> 
+		
+
+
+			
+		</form>
+    </div>
+</div>
+    </section>
+			
+    </body>
+</html>
